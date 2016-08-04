@@ -20,14 +20,7 @@ page.open('http://www.moneysupermarket.com/gas-and-electricity/', function(statu
   else {
     evaluate(page, function(name) {
       document.getElementById("btnEnquiry").click();
-      document.getElementById("houseNumberOrName").value = '5';
-      setTimeout(
-        function () {
-          //capture screen after submission
-          document.getElementById("houseNumberOrName").value = 'five';
-        },
-        2000 // wait 2,000ms (2s)
-      );
+      
     }, name);
     
     // capture screen with fields complete
@@ -36,7 +29,7 @@ page.open('http://www.moneysupermarket.com/gas-and-electricity/', function(statu
     setTimeout(
       function () {
         //capture screen after submission
-        page.render(name + '-result.png');
+        page.render('images/' + name + '-result.png');
         console.log("Finished checking " + name);
         phantom.exit(0);
       },
