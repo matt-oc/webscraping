@@ -16,16 +16,32 @@ page.open('http://www.moneysupermarket.com/gas-and-electricity/', function(statu
   if (status !== 'success') {
     console.log('Unable to access network');
     phantom.exit();
-  } 
+  }
   else {
+    page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
     evaluate(page, function(name) {
       document.getElementById("btnEnquiry").click();
-      
+
     }, name);
-    
+
+    setTimeout(
+      function () {
+        evaluate(page, function(name) {
+          $('#change-address').click();
+          $('#houseNumberOrName').val("10");
+          $('#postcode').val("SW155PU");
+          $('#button-findaddress').click();
+
+        }, name);
+      },
+      2000 // wait 3,000ms (3s)
+    );
+
+
+
     // capture screen with fields complete
     //page.render( name + '.png');
-    
+
     setTimeout(
       function () {
         //capture screen after submission
@@ -33,7 +49,8 @@ page.open('http://www.moneysupermarket.com/gas-and-electricity/', function(statu
         console.log("Finished checking " + name);
         phantom.exit(0);
       },
-      3000 // wait 3,000ms (3s)
+      6000 // wait 3,000ms (3s)
     );
+    });
   }
 });
